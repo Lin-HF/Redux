@@ -3,9 +3,10 @@ import React, { Component } from 'react';
 import CounterControl from '../../components/CounterControl/CounterControl';
 import CounterOutput from '../../components/CounterOutput/CounterOutput';
 
-import {connect} from 'react-redux';
+import { connect } from 'react-redux';
 
-import * as actionTypes from '../../store/actions';
+// import * as actionTypes from '../../store/actions/actions';
+import * as actionCreator from '../../store/actions/actions';
 
 class Counter extends Component {
     // state = {
@@ -29,14 +30,14 @@ class Counter extends Component {
     //     }
     // }
 
-    render () {
+    render() {
         return (
             <div>
                 <CounterOutput value={this.props.ctr} />
                 <CounterControl label="Increment" clicked={this.props.onIncrementCounter} />
-                <CounterControl label="Decrement" clicked={this.props.onDecrementCounter}  />
-                <CounterControl label="Add 5" clicked={this.props.onAdd5Counter}  />
-                <CounterControl label="Subtract 5" clicked={this.props.onSubstract5Counter}  />
+                <CounterControl label="Decrement" clicked={this.props.onDecrementCounter} />
+                <CounterControl label="Add 5" clicked={this.props.onAdd5Counter} />
+                <CounterControl label="Subtract 5" clicked={this.props.onSubstract5Counter} />
                 <hr />
                 <button onClick={() => this.props.onStoreResult(this.props.ctr)}>Store Result</button>
                 <ul>
@@ -58,12 +59,16 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = dispatch => {
     return {
-        onIncrementCounter: () => dispatch({type: actionTypes.INCREMENT}),
-        onDecrementCounter: () => dispatch({type: actionTypes.DECREMENT}),
-        onAdd5Counter: () => dispatch({type: actionTypes.ADD5, val: 5}),
-        onSubstract5Counter: () => dispatch({type: actionTypes.SUBSTRACT5, val: 5}),
-        onStoreResult: (result) => dispatch({type: actionTypes.STORE_RESULT, result: result}),
-        onDelteResult: (id) => dispatch({type: actionTypes.DELETE_RESULT, resultElId: id})
+        onIncrementCounter: () => dispatch(actionCreator.increment()),
+        onDecrementCounter: () => dispatch(actionCreator.decrement()),
+        // onAdd5Counter: () => dispatch({type: actionTypes.ADD5, val: 5}),
+        // onSubstract5Counter: () => dispatch({type: actionTypes.SUBSTRACT5, val: 5}),
+        // onStoreResult: (result) => dispatch({type: actionTypes.STORE_RESULT, result: result}),
+        // onDelteResult: (id) => dispatch({type: actionTypes.DELETE_RESULT, resultElId: id})
+        onAdd5Counter: () => dispatch(actionCreator.add5(5)),
+        onSubstract5Counter: () => dispatch(actionCreator.subtract(5)),
+        onStoreResult: (result) => dispatch(actionCreator.storeResult(result)),
+        onDelteResult: (id) => dispatch(actionCreator.deleteResult(id))
     };
 };
 
