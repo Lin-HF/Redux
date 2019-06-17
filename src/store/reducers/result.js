@@ -3,6 +3,11 @@ import { updateObject } from '../utility';
 
 const initialStore = {
     results: []
+};
+
+const deleteResult = (state, action) => {
+    const updatedArray = state.results.filter(result => result.id !== action.resultElId);
+    return updateObject(state, {results: updatedArray}); 
 }
 
 const reducer = (state = initialStore, action) => {
@@ -21,12 +26,13 @@ const reducer = (state = initialStore, action) => {
             //     ...state,
             //     results: newArray
             // }
-            const updatedArray = state.results.filter(result => result.id !== action.resultElId);
-            return updateObject(state, {results: updatedArray});
+            // const updatedArray = state.results.filter(result => result.id !== action.resultElId);
+            // return updateObject(state, {results: updatedArray});
             // {
             //     ...state,
             //     results: updatedArray
             // }
+            return deleteResult(state, action);
     }
     return state;
 }
